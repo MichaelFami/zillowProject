@@ -1,0 +1,28 @@
+.searchHeading{
+    padding-left:105px;
+
+
+}
+#addressHeading{
+    margin-left: 20px;
+}
+td{
+    padding-left: 15px;
+}
+th{
+    padding-left: 15px;
+}
+
+.sepRows{
+    margin-top: 40px;
+}
+body{
+    background-color: #807EFB;
+}
+button{
+    background-color: #4931A8;
+}
+
+.navbar{
+    background-color: #4931A8;
+}

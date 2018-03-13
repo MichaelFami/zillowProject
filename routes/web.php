@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
+
+Route::post('/get_CompData', 'ZillowController@getComps');
+Route::get('/', function() {
     return view('compfinder');
 });
