@@ -26,7 +26,9 @@
 
         <div class="row sepRows">
             <div class="col">
-                <table>
+                @if(!empty($compData))
+                <table class="table">
+
                     <thead>
                         <th>Address</th>
                         <th>City</th>
@@ -36,7 +38,7 @@
                         <th>Listing</th>
                     </thead>
                     <tbody>
-                        @if(!empty($compData))
+
                         <tr>
                             <td>{{$compData['response']['properties']['principal']['address']['street']}}</td>
                             <td>{{$compData['response']['properties']['principal']['address']['city']}}</td>
@@ -60,14 +62,16 @@
                                 <button class="btn button"type="button"  name="button" >Listing</button></a></td>
 
                         </tr>
-                        @endif
+
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <table>
+                @if(!empty($compData))
+                <table class="table">
                     <thead>
                         <th>Address</th>
                         <th>City</th>
@@ -77,7 +81,7 @@
                         <th>Listing</th>
                     </thead>
                     <tbody>
-                        @if(!empty($compData))
+
                         @foreach($compData['response']['properties']['comparables']['comp'] as $comp)
                         <tr>
                             <td>{{$comp['address']['street']}}</td>
@@ -109,19 +113,21 @@
 
                         </tr>
                         @endforeach
-                        @endif
+
 
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
     </div>
     <div class="col">
+        @if(!empty($compData))
         <h5>Average Price Per Square Foot</h5>
         <div class="row">
 
             <div class="col">
-                @if(!empty($compData))
+
                     <?php $sum= 0;  ?>
                 @foreach($compData['response']['properties']['comparables']['comp'] as $comp)
 
@@ -142,21 +148,22 @@
                 $avppsf = $sum/count($compData['response']['properties']['comparables']['comp']);
 
                 echo $avppsf; ?>
-                @endif
+
             </div>
         </div>
         <h5>Investment Recommendation</h5>
         <div class="row">
             <div class="col">
-                @if(!empty($compData))
+
                 <?php if (($compData['response']['properties']['principal']['zestimate']['amount']/$compData['response']['properties']['principal']['finishedSqFt']) < $avppsf) {
                     echo "Buy";
                 } else{
                     echo "Do Not Buy";
                 }?>
-                @endif
+
             </div>
         </div>
+        @endif
     </div>
 </div>
 

@@ -26,3 +26,9 @@ button{
 .navbar{
     background-color: #4931A8;
 }
+
+footer{
+    background-color: #4931A8;
+    padding-top: 50px;
+    margin-top: 25px;
+}
