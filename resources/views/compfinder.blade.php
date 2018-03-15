@@ -38,8 +38,8 @@
                 <form class="" action="get_CompData" method="post">
                     @csrf
                     <input type="text" name="addressListing" placeholder="Use Spaces" value="">
-                    <input type="text" name="zipListing" placeholder="Zipcode" value="">
-                    <input type="text" name="numberComps" placeholder="Number of Comps" value="">
+                    <input class="firstInputs" type="text" name="zipListing" placeholder="Zipcode" value="">
+                    <input class="firstInputs" type="text" name="numberComps" placeholder="Number of Comps" value="">
                     <button class="button btn" type="submit" name="button">Search</button>
                 </form>
             </div>
@@ -190,7 +190,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                             </div>
-                            <input name="housePrice" type="text" class="form-control" id="housePrice" value="150000">
+                            <input name="housePrice" type="text" class="form-control" id="housePrice" value={{$compData['response']['properties']['principal']['zestimate']['amount']}}>
                         </div>
                     </div>
                     <div class="form-group row">

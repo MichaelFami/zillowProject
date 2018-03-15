@@ -94,8 +94,7 @@ protected function getLoanCalculation(Request $request){
     Log::info($D);
 
 
-
-    return $payment;
+    return "$".money_format('%.2n',$payment);
 }
 
 
