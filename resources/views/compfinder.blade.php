@@ -1,6 +1,7 @@
 @extends('master')
 @section('styles')
 <link rel="stylesheet" href="css/style.css">
+
 @endsection
 
 @section('content')
@@ -57,7 +58,7 @@
                                 </td>
                             @endif
 
-                            <td>{{($compData['response']['properties']['principal']['zestimate']['amount']/$compData['response']['properties']['principal']['finishedSqFt'])}}</td>
+                            <td>{{money_format('%.2n',($compData['response']['properties']['principal']['zestimate']['amount']/$compData['response']['properties']['principal']['finishedSqFt']))}}</td>
                             <td><a href="{{$compData['response']['properties']['principal']['links']['homedetails']}}" target="_blank">
                                 <button class="btn button"type="button"  name="button" >Listing</button></a></td>
 
@@ -95,7 +96,7 @@
                             @endif
                             @if( !empty($comp['finishedSqFt']) )
                                 <td>{{$comp['finishedSqFt']}}</td>
-                                <td>{{($comp['zestimate']['amount']/$comp['finishedSqFt'])}}</td>
+                                <td>{{money_format('%.2n',$comp['zestimate']['amount']/$comp['finishedSqFt'])}}</td>
 
 
                             @else
@@ -145,7 +146,7 @@
                     @endif
                 @endforeach
                 <?php
-                $avppsf = $sum/count($compData['response']['properties']['comparables']['comp']);
+                $avppsf =money_format('%.2n', ($sum/count($compData['response']['properties']['comparables']['comp'])));
 
                 echo $avppsf; ?>
 
@@ -157,15 +158,131 @@
 
                 <?php if (($compData['response']['properties']['principal']['zestimate']['amount']/$compData['response']['properties']['principal']['finishedSqFt']) < $avppsf) {
                     echo "Buy";
-                } else{
+                } else {
                     echo "Do Not Buy";
                 }?>
 
             </div>
         </div>
+        <div class="row form-group">
+
+            <form action="getLoanCalculation" method="post">
+
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="housePrice">House Price:</label>
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">$</div>
+                            </div>
+                            <input name="housePrice" type="text" class="form-control" id="housePrice"  value="150000">
+                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="loanTerm">Loan term:</label>
+                        <div class="input-group col-sm-6">
+                            <input name="loanTerm" type="text" class="form-control" id="loanTerm" aria-describedby="basicAddOn2"  value="15">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basicAddOn2">years</span>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="interestRate">Interest Rate:</label>
+                        <div class="input-group col-sm-6">
+                            <input name="interestRate" type="text" class="form-control" id="interestRate" aria-describedby="basicAddOn3"  value="5.5">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basicAddOn3">%</span>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label" for="downPayment">Down Payment:</label>
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basicAddOn4">$</span>
+                            </div>
+                            <input name="downPayment" type="text" class="form-control" id="downPayment" aria-describedby="basicAddOn4"  value="10000">
+
+                        </div>
+                </div>
+
+                <button id="calculate" class="btn" data-toggle="modal" data-target="#exampleModalCenter" type="button" name="button">Calculate</button>
+            </form>
+
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Monthly Payment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
         @endif
     </div>
 </div>
+
+
+@endsection
+
+@section('javascript')
+    <script>
+    /* must apply only after HTML has loaded */
+    $(document).ready(function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#calculate").on('click', function() {
+            var housePrice = $("#housePrice").val();
+            var loanTerm = $("#loanTerm").val();
+            var interestRate = $("#interestRate").val();
+            var downPayment = $("#downPayment").val();
+
+            postData = {
+                price: housePrice,
+                term: loanTerm,
+                rate: interestRate,
+                down: downPayment,
+
+
+            };
+
+            $.ajax({
+                url: '/getLoanCalculation',
+                type: 'POST',
+                data: postData
+            })
+            .done(function(response) {
+                console.log(response);
+                // stick the response into the modal html
+                $("#modalCenter .modal-body").html(response);
+                // activate the modal
+                $('#modalCenter').modal('toggle');
+
+            });
+        });
+
+    });
+    </script>
+
 
 
 @endsection

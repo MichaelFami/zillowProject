@@ -68,5 +68,35 @@ class ZillowController extends Controller
     }
 
 
+protected function getLoanCalculation(Request $request){
+    Log::info('hello!');
+    $price= $request->price;
+    $loanTerm = ($request->term)*12;
+    $interestRate = (($request->rate)/100)/12;
+    $downPayment = $request->down;
+    $loanAmount = $price-$downPayment;
+
+    //Monthly loan payment is calculated using the following equation
+    //monthly payment = A/B
+    //A = (monthly rate)*(amount Being Financed)
+    //B = 1-D
+    //C = (1+monthlyrate)
+    //D = C to the power of (number Of Monthly Payments)
+    $A = $interestRate*$loanAmount;
+    $C = 1+$interestRate;
+    $D = $C**(-$loanTerm);
+    $B = 1-$D;
+    $payment = $A/$B;
+
+    Log::info($A);
+    Log::info($B);
+    Log::info($C);
+    Log::info($D);
+
+
+
+    return $payment;
+}
+
 
 }

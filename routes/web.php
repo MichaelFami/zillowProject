@@ -16,3 +16,4 @@ Route::post('/get_CompData', 'ZillowController@getComps');
 Route::get('/', function() {
     return view('compfinder');
 });
+Route::post('/getLoanCalculation', 'ZillowController@getLoanCalculation');
