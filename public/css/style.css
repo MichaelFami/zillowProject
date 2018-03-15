@@ -17,19 +17,47 @@ th{
     margin-top: 40px;
 }
 body{
-    background-color: #807EFB;
-    
+    background-color: rgba(14, 91, 185, 0.45);
+
+
 }
 button{
-    background-color: #4931A8;
+    background-color: #0E5BB9;
 }
 
 .navbar{
-    background-color: #4931A8;
+    background-color: #0E5BB9;
 }
 
 footer{
-    background-color: #4931A8;
+    background-color: #0E5BB9;
     padding-top: 50px;
     margin-top: 25px;
+}
+
+.jumbotron {
+    color: white;
+  background:
+    /* top, transparent red, faked with gradient */
+    linear-gradient(
+      rgba(14, 91, 185, 0.45),
+      rgba(14, 91, 185, 0.45)
+    ),
+    /* bottom, image */
+    url(/images/suburbanHouses.jpg);
+}
+
+
+#calculator{
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+#investmentRec{
+    margin-left: 10px;
+}
+
+#titleJumbo{
+
+
 }
