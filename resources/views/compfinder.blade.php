@@ -56,7 +56,9 @@
 
             <div class="row sepRows">
                 <div class="col">
+
                     @if(!empty($compData))
+                    <h3>Principal Property</h3>
                     <table class="table">
 
                         <thead>
@@ -100,6 +102,7 @@
             <div class="row">
                 <div class="col">
                     @if(!empty($compData))
+                    <h3>Comparable Properties</h3>
                     <table class="table">
                         <thead>
                             <th>Address</th>
@@ -179,53 +182,56 @@
                             }?>
                         </div>
                     </div>
-                @endif
+
+
             <div class="row form-group" id="calculator">
+                <div class="col">
 
-                <form action="getLoanCalculation" method="post">
-                    <h5>Loan Payment Calculator</h5>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="housePrice">House Price:</label>
-                        <div class="input-group col-sm-6">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">$</div>
-                            </div>
-                            <input name="housePrice" type="text" class="form-control" id="housePrice" value={{$compData['response']['properties']['principal']['zestimate']['amount']}}>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="loanTerm">Loan term:</label>
-                        <div class="input-group col-sm-6">
-                            <input name="loanTerm" type="text" class="form-control" id="loanTerm" aria-describedby="basicAddOn2" value="15">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basicAddOn2">years</span>
+
+                    <form action="getLoanCalculation" method="post">
+                        <h5>Loan Payment Calculator</h5>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="housePrice">House Price:</label>
+                            <div class="input-group col-sm-6">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input name="housePrice" type="text" class="form-control" id="housePrice" value={{$compData['response']['properties']['principal']['zestimate']['amount']}}>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="interestRate">Interest Rate:</label>
-                        <div class="input-group col-sm-6">
-                            <input name="interestRate" type="text" class="form-control" id="interestRate" aria-describedby="basicAddOn3" value="5.5">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basicAddOn3">%</span>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="loanTerm">Loan term:</label>
+                            <div class="input-group col-sm-6">
+                                <input name="loanTerm" type="text" class="form-control" id="loanTerm" aria-describedby="basicAddOn2" value="15">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basicAddOn2">years</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label" for="downPayment">Down Payment:</label>
-                        <div class="input-group col-sm-6">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basicAddOn4">$</span>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="interestRate">Interest Rate:</label>
+                            <div class="input-group col-sm-6">
+                                <input name="interestRate" type="text" class="form-control" id="interestRate" aria-describedby="basicAddOn3" value="5.5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basicAddOn3">%</span>
+                                </div>
                             </div>
-                            <input name="downPayment" type="text" class="form-control" id="downPayment" aria-describedby="basicAddOn4" value="10000">
-
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label" for="downPayment">Down Payment:</label>
+                            <div class="input-group col-sm-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basicAddOn4">$</span>
+                                </div>
+                                <input name="downPayment" type="text" class="form-control" id="downPayment" aria-describedby="basicAddOn4" value="10000">
 
-                    <button id="calculate" class="btn" data-toggle="modal" data-target="#exampleModalCenter" type="button" name="button">Calculate</button>
-                </form>
+                            </div>
+                        </div>
 
-
+                        <button id="calculate" class="btn" data-toggle="modal" data-target="#exampleModalCenter" type="button" name="button">Calculate</button>
+                    </form>
+                </div>
+                @endif
             </div>
         </div>
     </div>

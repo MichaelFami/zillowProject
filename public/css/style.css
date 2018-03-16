@@ -13,9 +13,7 @@ th{
     padding-left: 15px;
 }
 
-.sepRows{
-    margin-top: 40px;
-}
+
 body{
     background-color: rgba(14, 91, 185, 0.45);
 
@@ -50,7 +48,6 @@ footer{
 
 #calculator{
     margin-top: 25px;
-    margin-left: 10px;
 }
 
 #investmentRec{
